@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question and Answer Generator</title>
+</head>
+<body>
+
+<h1>Question and Answer Generation Using NLP with Flask</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <h3>Enter Text</h3>
+    <textarea name="text" rows="10" cols="80">{{ text }}</textarea>
+
+    <br><br>
+
+    <h3>Upload File</h3>
+    <input type="file" name="file" accept=".pdf,.docx,.pptx,.txt">
+
+    <br><br>
+
+    <h3>Question Type</h3>
+    <select name="question_type">
+        <option value="all">All Questions</option>
+        <option value="2">2 Mark</option>
+        <option value="8">8 Mark</option>
+        <option value="13">13 Mark</option>
+        <option value="16">16 Mark</option>
+    </select>
+
+    <br><br>
+
+    <button type="submit">Generate Questions</button>
+
+</form>
+
+{% if error %}
+<p style="color:red;"><b>{{ error }}</b></p>
+{% endif %}
+
+<hr>
+
+{% if result.two_mark %}
+<h2>2 Mark Questions</h2>
+{% for item in result.two_mark %}
+<p><b>Q{{ loop.index }}:</b> {{ item.question }}</p>
+<p><b>Answer:</b> {{ item.answer }}</p>
+{% endfor %}
+<hr>
+{% endif %}
+
+{% if result.eight_mark %}
+<h2>8 Mark Questions</h2>
+{% for item in result.eight_mark %}
+<p><b>Q{{ loop.index }}:</b> {{ item.question }}</p>
+<pre>{{ item.answer }}</pre>
+{% endfor %}
+<hr>
+{% endif %}
+
+{% if result.thirteen_mark %}
+<h2>13 Mark Questions</h2>
+{% for item in result.thirteen_mark %}
+<p><b>Q{{ loop.index }}:</b> {{ item.question }}</p>
+<pre>{{ item.answer }}</pre>
+{% endfor %}
+<hr>
+{% endif %}
+
+{% if result.sixteen_mark %}
+<h2>16 Mark Questions</h2>
+{% for item in result.sixteen_mark %}
+<p><b>Q{{ loop.index }}:</b> {{ item.question }}</p>
+<pre>{{ item.answer }}</pre>
+{% endfor %}
+<hr>
+{% endif %}
+
+{% if result.mcq %}
+<h2>MCQ Questions</h2>
+{% for item in result.mcq %}
+<p><b>Q{{ loop.index }}:</b> {{ item.question }}</p>
+<ol type="A">
+{% for option in item.options %}
+<li>{{ option }}</li>
+{% endfor %}
+</ol>
+<p><b>Correct Answer:</b> {{ item.answer }}</p>
+{% endfor %}
+<hr>
+{% endif %}
+
+{% if result.maths %}
+<h2>Engineering Maths Questions</h2>
+{% for item in result.maths %}
+<p><b>Q{{ loop.index }}:</b> {{ item.question }}</p>
+<p><b>Answer:</b> {{ item.answer }}</p>
+{% endfor %}
+{% endif %}
+
+</body>
+</html>
